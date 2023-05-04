@@ -1,0 +1,36 @@
+--Creat a clothing store database
+CREATE TABLE store (id INTEGER PRIMARY KEY, item TEXT, Color TEXT, Size NUMERIC, Reference NUMERIC, Origin TEXT, Price REAL);
+
+INSERT INTO store VALUES 
+(1, "Jeans", "Light Blue", 36, 47015, "Tunisia", 19),
+(2, "Shorts", "Yellow", 36, 47016, "India", 17.99),
+(3, "Skirts", "Pink", 36, 47017, "Turkey", 18.99),
+(4, "Blouses", "White", 34, 48014, "Bangladesh", 20.00),
+(5, "Sweatshirts", "Dark Blue", 36, 48015, "Tunisia", 17.99),
+(6, "Tops", "Light Pink", 34, 48016, "Portugal", 22.99),
+(7, "Dresses", "Violet", 36, 49015, "Spain", 25.99),
+(8, "Swimsuits", "Black", 38, 50015, "India", 27.99),
+(9, "Bikinis", "Orange", 36, 50016, "Portugal", 26.99),
+(10, "Socks", "Purple", 38, 51015, "Portugal", 6.99),
+(11, "Bras", "Black", 36, 52016, "Brazil", 14.99),
+(12, "Briefs", "Pink", 36, 52017, "Italy", 5.99),
+(13, "Tshirts", "White", 38, 52018, "Portugal", 10.99),
+(14, "Shoes", "Black", 38, 53015, "Portugal", 36.99),
+(15, "Trousers", "Blue", 38, 54015, "Portugal", 37.99);
+SELECT * FROM store;
+
+--display the database ordered by price.
+SELECT * FROM store
+ORDER BY Price asc;
+
+--what is the sum of all the prices of the items in the store?
+SELECT SUM(Price) FROM store;
+
+--what is the average price of the items in the store?
+SELECT AVG(Price) FROM store;
+
+--what is the highest price of an item in the store?
+SELECT MAX(Price) FROM store;
+
+--what is the lowest price of an item in the store?
+SELECT MIN(Price) FROM store;
