@@ -60,4 +60,62 @@ VALUES
 
 # Analysis: 
 
-# Assign all the companies in the Healthcare industry as "mother friendly workplace", "acceptable", or "abysmal" based on the maternity leave offered.
+# Classify all the companies in the Healthcare industry as "mother friendly", "reasonable", or "not mother friendly" based on the maternity leave offered. 
+
+SELECT company_name,
+CASE WHEN maternity_leave_weeks >= 10 THEN 'Mother friendly'
+WHEN maternity_leave_weeks >= 8 THEN 'Reasonable'
+ELSE 'Not mother friendly'
+END AS mother_friendliness
+FROM fortune_companies
+WHERE industry = 'Healthcare'
+ORDER BY maternity_leave_weeks desc
+;
+
+# Which industries have an average revenue of at least $200 Billion, and what are their avg revenues?
+
+SELECT industry
+, ROUND(AVG(revenue), 1) AS avg_revenue_billions
+FROM fortune_companies
+GROUP BY industry
+HAVING avg_revenue_billions >= 200
+ORDER BY avg_revenue_billions desc
+;
+
+# Which companies have healthcare benefits AND at least 20 paid time off days?
+
+SELECT company_name
+FROM fortune_companies
+WHERE paid_time_off_days >= 20
+AND healthcare_benefits = 1
+;
+
+# Which companies have at least 20 days of PTO OR at least 10 weeks of maternity leave?
+
+SELECT company_name
+FROM fortune_companies
+WHERE paid_time_off_days >= 20
+OR maternity_leave_weeks >= 10
+;
+
+# Which company in the Retail industry has the least revenue, and what's their revenue? 
+
+SELECT company_name
+, MIN(revenue)
+FROM fortune_companies
+WHERE industry = 'Retail'
+;
+
+# Count how many companies provide healthcare benefits and how many companies don't.
+
+SELECT
+CASE
+WHEN healthcare_benefits = 0 THEN 'No'
+WHEN healthcare_benefits = 1 THEN 'Yes'
+END AS healthcare_benefits
+, COUNT(company_name) AS number_of_companies
+FROM fortune_companies
+WHERE healthcare_benefits = 1
+OR healthcare_benefits = 0
+GROUP BY healthcare_benefits
+;
