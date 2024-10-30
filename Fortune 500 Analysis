@@ -105,17 +105,3 @@ SELECT company_name
 FROM fortune_companies
 WHERE industry = 'Retail'
 ;
-
-# Count how many companies provide healthcare benefits and how many companies don't.
-
-SELECT
-CASE
-WHEN healthcare_benefits = 0 THEN 'No'
-WHEN healthcare_benefits = 1 THEN 'Yes'
-END AS healthcare_benefits
-, COUNT(company_name) AS number_of_companies
-FROM fortune_companies
-WHERE healthcare_benefits = 1
-OR healthcare_benefits = 0
-GROUP BY healthcare_benefits
-;
