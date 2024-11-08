@@ -28,47 +28,53 @@ time_signature integer NOT NULL
 
 #Next, I explored the data using the following SQL. 
 
- #1. Order the artists and track names according to the duration of the songs, from longest to shortest.
- 
+#1. Which artist appears most frequently in the dataset?
+
 SELECT artist_name
-, track_name
-, duration_ms
+, COUNT(track_name) as song_count
 FROM BIT_DB.Spotifydata
 GROUP BY artist_name
-ORDER BY duration_ms desc
-;
-
-#2. What is the average danceability by artist?
-
-SELECT artist_name
-, AVG(danceability) AS avg_danceability
-FROM BIT_DB.Spotifydata
-GROUP BY artist_name
-ORDER BY AVG(danceability) desc
-;
-
-#3. Who are the top 10 artists based on popularity?
-
-SELECT artist_name
-, popularity
-FROM BIT_DB.Spotifydata
-ORDER BY popularity desc
-LIMIT 10
-;
-
-#4. What artist released the shortest song? 
-
-SELECT artist_name
-FROM BIT_DB.Spotifydata
-ORDER BY duration_ms asc
+ORDER BY song_count desc
 LIMIT 1
 ;
 
-#5. Who are the top 10 artists based on danceability?
+#2. What are the top 10 highest danceability scores, and which tracks and artists have it?
 
-SELECT artist_name
-, danceability
+SELECT track_name, artist_name, danceability 
 FROM BIT_DB.Spotifydata
-ORDER BY danceability desc
+ORDER BY danceability DESC
 LIMIT 10
 ;
+
+#3. Which songs have both high danceability (above 0.7) and high energy (above 0.7) but lower popularity (below 80)?
+
+SELECT track_name
+, artist_name
+, danceability
+, energy
+, popularity 
+FROM BIT_DB.Spotifydata
+WHERE danceability > 0.7 
+AND energy > 0.7 
+AND popularity < 80
+ORDER BY popularity desc
+;
+
+#4. What is the distribution of loudness levels by popularity?
+
+SELECT popularity, AVG(loudness) AS avg_loudness
+FROM BIT_DB.Spotifydata
+GROUP BY popularity
+ORDER BY popularity DESC
+;
+
+#5. Which artist wrote the longest song?
+
+SELECT artist_name
+, MAX(duration_ms)
+FROM BIT_DB.Spotifydata
+ORDER BY duration_ms desc
+LIMIT 1
+;
+
+
