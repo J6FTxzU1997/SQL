@@ -68,10 +68,10 @@ GROUP BY popularity
 ORDER BY popularity DESC
 ;
 
-#5. Which artist wrote the longest song?
+#5. Which artist wrote the shortest song?
 
 SELECT artist_name
-, MAX(duration_ms)
+, MIN(duration_ms)
 FROM BIT_DB.Spotifydata
 ORDER BY duration_ms desc
 LIMIT 1
